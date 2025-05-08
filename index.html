@@ -58,6 +58,11 @@
                 display: block;
                 margin: 0 auto;
             }
+            #ee h3 {
+                display: block;
+                text-align: center;
+                margin: 0 auto;
+            }
         </style>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -123,6 +128,10 @@
                     tmp.src = "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/logos/Global-Header_MCCB-Logo_300x51.svg";
                     tmp.style.width = "70%";
                     ee.appendChild(tmp);
+                    const p = document.createElement("h3");
+                    p.style.color = "white";
+                    p.innerHTML = "<br /> XYKTL SERVER <br /> technical support provided by VFD9654 & GITHUB <br /> Site made by VFD9654 <br /> Designing idea providers: <br /> XY_KTL <br /> ZIHAO JIN <br /> A MINECRAFT SERVER WEBSITE "
+                    ee.appendChild(p)
                     ee.style.top = "100%";
                     body.appendChild(ee);
 
