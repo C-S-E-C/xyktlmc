@@ -141,9 +141,9 @@
                         ee.style.top = top + "%";
 
                         // Stop the animation when the element reaches the top
-                        // if (top <= 0) {
-                        //     clearInterval(interval);
-                        // }
+                        if (top <= -100) {
+                            clearInterval(interval);
+                        }
                     }, 15);
                 }
             });
