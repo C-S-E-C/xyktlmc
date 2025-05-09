@@ -81,18 +81,20 @@
       margin-top: 30px;
     }
 
-    /* 修改原始图片尺寸，增大页面显示图片 */
     .screenshots img {
-      width: 700px;  /* 你可以根据需要调整这个值 */
+      width: 400px;
       height: auto;
       border: 2px solid #00bfff;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.3s;
+      transition: transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
     }
 
-    .screenshots img:hover {
-      transform: scale(1.05);
+    .screenshots img.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     footer {
@@ -132,50 +134,67 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      z-index: 1000;
     }
 
     .mode-toggle:hover {
       background-color: #0099cc;
     }
 
-    /* 弹窗样式 */
+    .logo {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 64px;
+      height: 64px;
+      z-index: 1000;
+    }
+
+    @media only screen and (max-width: 768px) {
+      header h1,
+      header p {
+        margin-left: 20px;
+        text-align: left;
+      }
+      .screenshots img {
+        width: 90%;
+      }
+    }
+
+    /* 图片弹窗样式 */
     .modal {
       display: none;
       position: fixed;
-      z-index: 1000;
+      z-index: 2000;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0,0,0,0.9);
     }
 
     .modal-content {
-      display: block;
       margin: 5% auto;
-      max-width: 1200px; /* 设置弹窗内的图片最大宽度 */
-      max-height: 90vh;
-      width: auto;
-      height: auto;
+      display: block;
+      max-width: 90%;
     }
 
     .close {
       position: absolute;
       top: 30px;
-      right: 50px;
+      right: 40px;
       color: #fff;
       font-size: 40px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .close:hover {
-      color: #ccc;
-    }
   </style>
 </head>
 <body>
+
+  <img src="images/logo.png" alt="logo" class="logo">
 
   <button class="mode-toggle" id="modeToggle"><i class="fas fa-moon"></i></button>
 
@@ -200,9 +219,9 @@
   <section id="screenshots">
     <h2>游戏内展示</h2>
     <div class="screenshots">
-      <img src="images/xyktl_mc.png" height="500" width="500" />
-      <img src="images/screenshot2.jpg" alt="游戏截图2">
-      <img src="images/screenshot3.jpg" alt="游戏截图3">
+      <img src="images/xyktl_mc.png" alt="游戏截图1" class="popup-img">
+      <img src="images/screenshot2.jpg" alt="游戏截图2" class="popup-img">
+      <img src="images/screenshot3.jpg" alt="游戏截图3" class="popup-img">
     </div>
   </section>
 
@@ -220,14 +239,13 @@
     <p>Copyright © 2025-2026 星缘方界 Xy_craft 版权所有。</p>
   </footer>
 
-  <!-- 弹窗结构 -->
-  <div id="imgModal" class="modal">
+  <!-- 弹窗 -->
+  <div id="imageModal" class="modal">
     <span class="close" id="closeModal">&times;</span>
-    <img class="modal-content" id="modalImage">
+    <img class="modal-content" id="modalImg">
   </div>
 
   <script>
-    // 明亮模式按钮
     const modeToggle = document.getElementById("modeToggle");
     modeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light-mode");
@@ -236,25 +254,37 @@
         : '<i class="fas fa-moon"></i>';
     });
 
-    // 弹窗图片放大
-    const modal = document.getElementById("imgModal");
-    const modalImg = document.getElementById("modalImage");
-    const closeBtn = document.getElementById("closeModal");
+    // 图片滚动出现动画
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
 
-    document.querySelectorAll(".screenshots img").forEach(img => {
+    document.querySelectorAll('.screenshots img').forEach(img => {
+      observer.observe(img);
+    });
+
+    // 弹窗功能
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImg");
+    const closeModal = document.getElementById("closeModal");
+
+    document.querySelectorAll('.popup-img').forEach(img => {
       img.addEventListener("click", () => {
         modal.style.display = "block";
         modalImg.src = img.src;
-        modalImg.alt = img.alt;
       });
     });
 
-    closeBtn.onclick = () => {
+    closeModal.onclick = function () {
       modal.style.display = "none";
     };
 
-    window.onclick = (e) => {
-      if (e.target === modal) {
+    window.onclick = function (event) {
+      if (event.target === modal) {
         modal.style.display = "none";
       }
     };
