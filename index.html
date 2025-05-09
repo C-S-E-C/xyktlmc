@@ -141,13 +141,24 @@
       background-color: #0099cc;
     }
 
-    .logo {
+    .logo-container {
       position: fixed;
       top: 20px;
       left: 20px;
-      width: 64px;
-      height: 64px;
+      display: flex;
+      align-items: center;
       z-index: 1000;
+    }
+
+    .logo {
+      width: 48px;  /* 调小logo */
+      height: 48px;
+    }
+
+    .server-name {
+      margin-left: 15px;
+      font-size: 24px;
+      color: #00bfff;
     }
 
     @media only screen and (max-width: 768px) {
@@ -194,7 +205,10 @@
 </head>
 <body>
 
-  <img src="images/logo.png" alt="logo" class="logo">
+  <div class="logo-container">
+    <img src="images/logo.png" alt="logo" class="logo">
+    <span class="server-name">星缘方界 Xy_craft</span>
+  </div>
 
   <button class="mode-toggle" id="modeToggle"><i class="fas fa-moon"></i></button>
 
