@@ -24,10 +24,7 @@
       color: #000;
     }
 
-    body.light-mode header p {
-      color: #444;
-    }
-
+    body.light-mode header p,
     body.light-mode section p {
       color: #444;
     }
@@ -92,6 +89,7 @@
       height: auto;
       border: 2px solid #00bfff;
       border-radius: 8px;
+      cursor: zoom-in;
     }
 
     footer {
@@ -119,7 +117,6 @@
       background-color: #0099cc;
     }
 
-    /* Bright mode button */
     .mode-toggle {
       position: fixed;
       top: 20px;
@@ -136,6 +133,27 @@
 
     .mode-toggle:hover {
       background-color: #0099cc;
+    }
+
+    /* 弹出图片遮罩样式 */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+
+    .image-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
     }
   </style>
 </head>
@@ -185,18 +203,36 @@
     <p>Copyright © 2025-2026 星缘方界 Xy_craft 版权所有。</p>
   </footer>
 
-  <script>
-    const modeToggle = document.getElementById("modeToggle");
+  <!-- 放大图片弹窗 -->
+  <div class="image-modal" id="imageModal">
+    <img id="modalImage" src="" alt="放大图片">
+  </div>
 
+  <script>
+    // 明暗模式切换
+    const modeToggle = document.getElementById("modeToggle");
     modeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light-mode");
+      modeToggle.innerHTML = document.body.classList.contains("light-mode")
+        ? '<i class="fas fa-sun"></i>'
+        : '<i class="fas fa-moon"></i>';
+    });
 
-      // Change icon based on mode
-      if (document.body.classList.contains("light-mode")) {
-        modeToggle.innerHTML = '<i class="fas fa-sun"></i>';  // Sun icon
-      } else {
-        modeToggle.innerHTML = '<i class="fas fa-moon"></i>'; // Moon icon
-      }
+    // 图片点击放大查看
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const screenshots = document.querySelectorAll(".screenshots img");
+
+    screenshots.forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+      });
+    });
+
+    modal.addEventListener("click", () => {
+      modal.style.display = "none";
     });
   </script>
 
