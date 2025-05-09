@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>星缘方界 Xy_craft</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -81,37 +81,18 @@
       margin-top: 30px;
     }
 
+    /* 修改原始图片尺寸，增大页面显示图片 */
     .screenshots img {
-      width: 300px;
+      width: 500px;  /* 你可以根据需要调整这个值 */
       height: auto;
       border: 2px solid #00bfff;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.3s;
     }
 
     .screenshots img:hover {
       transform: scale(1.05);
-    }
-
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .popup-overlay img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-      border: 4px solid #00bfff;
     }
 
     footer {
@@ -156,6 +137,42 @@
     .mode-toggle:hover {
       background-color: #0099cc;
     }
+
+    /* 弹窗样式 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-content {
+      display: block;
+      margin: 5% auto;
+      max-width: 1200px; /* 设置弹窗内的图片最大宽度 */
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+    }
+
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
@@ -175,7 +192,7 @@
 
   <section id="about">
     <h2>关于</h2>
-    <p>星缘方界 Xy_craft 是一个公益性质的 Minecraft 服务器，主要玩法为纯净生存。服务器的版本目前是 1.21.1，可以加入客户端向的模组。</p>
+    <p>星缘方界 Xy_craft 是一个公益性质的 Minecraft 服务器，主要玩法为纯净生存。服务器的版本目前是1.21.1，可以加入客户端向的模组。</p>
     <p>星缘方界 Xy_craft 最早起始于 2024 年。这个服务器原本只是朋友之间随便搭的，现在我们希望更多人能一起来享受纯净生存的乐趣。</p>
     <p>星缘方界 Xy_craft 由 Locyan 驱动。</p>
   </section>
@@ -188,10 +205,6 @@
       <img src="images/screenshot3.jpg" alt="游戏截图3">
     </div>
   </section>
-
-  <div class="popup-overlay" id="popupOverlay">
-    <img id="popupImage" src="" alt="放大图片">
-  </div>
 
   <section id="join">
     <h2>加入我们</h2>
@@ -207,27 +220,45 @@
     <p>Copyright © 2025-2026 星缘方界 Xy_craft 版权所有。</p>
   </footer>
 
+  <!-- 弹窗结构 -->
+  <div id="imgModal" class="modal">
+    <span class="close" id="closeModal">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
   <script>
-    // 明暗模式切换
+    // 明亮模式按钮
     const modeToggle = document.getElementById("modeToggle");
     modeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light-mode");
-      modeToggle.innerHTML = document.body.classList.contains("light-mode") ?
-        '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      modeToggle.innerHTML = document.body.classList.contains("light-mode")
+        ? '<i class="fas fa-sun"></i>'
+        : '<i class="fas fa-moon"></i>';
     });
 
-    // 图片点击放大
-    const popupOverlay = document.getElementById("popupOverlay");
-    const popupImage = document.getElementById("popupImage");
+    // 弹窗图片放大
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeBtn = document.getElementById("closeModal");
+
     document.querySelectorAll(".screenshots img").forEach(img => {
       img.addEventListener("click", () => {
-        popupImage.src = img.src;
-        popupOverlay.style.display = "flex";
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
       });
     });
-    popupOverlay.addEventListener("click", () => {
-      popupOverlay.style.display = "none";
-    });
+
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    window.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    };
   </script>
+
 </body>
 </html>
