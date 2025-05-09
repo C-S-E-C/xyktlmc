@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>星缘方界 Xy_craft</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -20,13 +20,10 @@
       color: #333;
     }
 
-    body.light-mode header h1 {
-      color: #000;
-    }
-
+    body.light-mode header h1,
     body.light-mode header p,
     body.light-mode section p {
-      color: #444;
+      color: #000;
     }
 
     header {
@@ -89,7 +86,32 @@
       height: auto;
       border: 2px solid #00bfff;
       border-radius: 8px;
-      cursor: zoom-in;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .screenshots img:hover {
+      transform: scale(1.05);
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .popup-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      border: 4px solid #00bfff;
     }
 
     footer {
@@ -134,27 +156,6 @@
     .mode-toggle:hover {
       background-color: #0099cc;
     }
-
-    /* 弹出图片遮罩样式 */
-    .image-modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
-      cursor: zoom-out;
-    }
-
-    .image-modal img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
-    }
   </style>
 </head>
 <body>
@@ -174,7 +175,7 @@
 
   <section id="about">
     <h2>关于</h2>
-    <p>星缘方界 Xy_craft 是一个公益性质的 Minecraft 服务器，主要玩法为纯净生存。服务器的版本目前是1.21.1，可以加入客户端向的模组。</p>
+    <p>星缘方界 Xy_craft 是一个公益性质的 Minecraft 服务器，主要玩法为纯净生存。服务器的版本目前是 1.21.1，可以加入客户端向的模组。</p>
     <p>星缘方界 Xy_craft 最早起始于 2024 年。这个服务器原本只是朋友之间随便搭的，现在我们希望更多人能一起来享受纯净生存的乐趣。</p>
     <p>星缘方界 Xy_craft 由 Locyan 驱动。</p>
   </section>
@@ -182,12 +183,15 @@
   <section id="screenshots">
     <h2>游戏内展示</h2>
     <div class="screenshots">
-    <img src="images/xyktl_mc_thumb.jpg" data-full="images/xyktl_mc_full.jpg" alt="游戏截图1">
-    <img src="screenshot2_thumb.jpg" data-full="screenshot2_large.jpg" alt="游戏截图2">
-    <img src="screenshot3.jpg" alt="游戏截图3">
-      <!-- 添加更多截图 -->
+      <img src="images/xyktl_mc.png" alt="游戏截图1">
+      <img src="images/screenshot2.jpg" alt="游戏截图2">
+      <img src="images/screenshot3.jpg" alt="游戏截图3">
     </div>
   </section>
+
+  <div class="popup-overlay" id="popupOverlay">
+    <img id="popupImage" src="" alt="放大图片">
+  </div>
 
   <section id="join">
     <h2>加入我们</h2>
@@ -203,38 +207,27 @@
     <p>Copyright © 2025-2026 星缘方界 Xy_craft 版权所有。</p>
   </footer>
 
-  <!-- 放大图片弹窗 -->
-  <div class="image-modal" id="imageModal">
-    <img id="modalImage" src="" alt="放大图片">
-  </div>
-
   <script>
     // 明暗模式切换
     const modeToggle = document.getElementById("modeToggle");
     modeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light-mode");
-      modeToggle.innerHTML = document.body.classList.contains("light-mode")
-        ? '<i class="fas fa-sun"></i>'
-        : '<i class="fas fa-moon"></i>';
+      modeToggle.innerHTML = document.body.classList.contains("light-mode") ?
+        '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     });
 
-    // 图片点击放大查看
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const screenshots = document.querySelectorAll(".screenshots img");
-
-    screenshots.forEach(img => {
+    // 图片点击放大
+    const popupOverlay = document.getElementById("popupOverlay");
+    const popupImage = document.getElementById("popupImage");
+    document.querySelectorAll(".screenshots img").forEach(img => {
       img.addEventListener("click", () => {
-        modal.style.display = "flex";
-        modalImg.src = img.src;
-        modalImg.alt = img.alt;
+        popupImage.src = img.src;
+        popupOverlay.style.display = "flex";
       });
     });
-
-    modal.addEventListener("click", () => {
-      modal.style.display = "none";
+    popupOverlay.addEventListener("click", () => {
+      popupOverlay.style.display = "none";
     });
   </script>
-
 </body>
 </html>
