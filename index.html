@@ -148,10 +148,11 @@
       display: flex;
       align-items: center;
       z-index: 1000;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
     .logo {
-      width: 48px;  /* 调小logo */
+      width: 48px;
       height: 48px;
     }
 
@@ -159,6 +160,11 @@
       margin-left: 15px;
       font-size: 24px;
       color: #00bfff;
+    }
+
+    .hide-on-scroll {
+      transform: translateY(-100px);
+      opacity: 0;
     }
 
     @media only screen and (max-width: 768px) {
@@ -172,7 +178,6 @@
       }
     }
 
-    /* 图片弹窗样式 */
     .modal {
       display: none;
       position: fixed;
@@ -200,12 +205,11 @@
       font-weight: bold;
       cursor: pointer;
     }
-
   </style>
 </head>
 <body>
 
-  <div class="logo-container">
+  <div class="logo-container" id="logoContainer">
     <img src="images/logo.png" alt="logo" class="logo">
     <span class="server-name">星缘方界 Xy_craft</span>
   </div>
@@ -234,7 +238,6 @@
     <h2>游戏内展示</h2>
     <div class="screenshots">
       <img src="images/xyktl_mc.png" alt="游戏截图1" class="popup-img">
-
     </div>
   </section>
 
@@ -252,7 +255,6 @@
     <p>Copyright © 2025-2026 星缘方界 Xy_craft 版权所有。</p>
   </footer>
 
-  <!-- 弹窗 -->
   <div id="imageModal" class="modal">
     <span class="close" id="closeModal">&times;</span>
     <img class="modal-content" id="modalImg">
@@ -267,7 +269,6 @@
         : '<i class="fas fa-moon"></i>';
     });
 
-    // 图片滚动出现动画
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -280,7 +281,6 @@
       observer.observe(img);
     });
 
-    // 弹窗功能
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modalImg");
     const closeModal = document.getElementById("closeModal");
@@ -301,6 +301,21 @@
         modal.style.display = "none";
       }
     };
+
+    // 手机端滚动隐藏logo
+    if (window.innerWidth <= 768) {
+      let lastScrollTop = 0;
+      const logoContainer = document.getElementById('logoContainer');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+          logoContainer.classList.add('hide-on-scroll');
+        } else {
+          logoContainer.classList.remove('hide-on-scroll');
+        }
+        lastScrollTop = scrollTop;
+      });
+    }
   </script>
 
 </body>
