@@ -95,7 +95,8 @@ section p {
 }
 
 .screenshots img:hover {
-  transform: scale(1.5);
+  transform: scale(2); /* Increase the scale for a larger effect */
+  z-index: 10; /* Ensure the image appears above other elements */
 }
 .screenshots img.visible {
   opacity: 1;
