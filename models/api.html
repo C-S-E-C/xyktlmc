@@ -33,7 +33,7 @@
         document.body.appendChild(renderer.domElement);
         
         // 4. Add lights (CRITICAL)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 2);
         scene.add(ambientLight);
         
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.01);
