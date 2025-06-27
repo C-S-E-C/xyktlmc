@@ -232,6 +232,18 @@ footer {
 
   </style>
   <script>
+    // useragent detection
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      document.body.innerHTML = `
+        <div style="text-align: center; padding: 50px;">
+          <h1>Mobile devices are not supported</h1>
+          <p>Please visit this site on a desktop or laptop computer.</p>
+        </div>
+      `;
+    }
+  </script>
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
                 const konamiCode = [
                     "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
