@@ -232,23 +232,26 @@ footer {
 
   </style>
   <script>
-    // useragent detection
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
     //get the whith of the screen
-    const screenWidth  = window.screen.width;
-    const screenHeight = window.screen.height;
-    if (screenWidth < screenHeight) {
+    const windowInnerWidth  = window.innerWidth;
+    const windowInnerHeight = window.innerHeight;
+    console.log("Window Width: " + windowInnerWidth);
+    console.log("Window Height: " + windowInnerHeight);
+    let isMobile = false;
+    if (windowInnerWidth < windowInnerHeight) {
       isMobile = true;
     } else {
       isMobile = isMobile;
     }
     if (isMobile) {
-      document.body.innerHTML = `
+      document.addEventListener("DOMContentLoaded", () => {
+      document.getElementsByTagName("body")[0].innerHTML = `
         <div style="text-align: center; padding: 50px;">
           <h1>Mobile devices are not supported</h1>
           <p>Please visit this site on a desktop or laptop computer.</p>
         </div>
       `;
+      });
     }
   </script>
   <script>
