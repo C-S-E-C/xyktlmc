@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Model Viewer</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #debug { position: absolute; top: 10px; left: 10px; color: white; }
+    </style>
+</head>
+<body>
+    <div id="debug">Loading...</div>
+    <script src="https://assets.r2.csec.top/3.js/three.min.js"></script>
+    <script src="https://assets.r2.csec.top/3.js/OrbitControls.js"></script>
+    <script src="https://assets.r2.csec.top/3.js/GLTFLoader.js"></script>
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const modelUrl = urlParams.get('model');
+        // Debug element
+        const debug = document.getElementById('debug');
+        
+        // 1. Initialize scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x333333); // Dark gray background
+        
+        // 2. Set up camera
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(5, 5, 5);
+        
+        // 3. Create renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        // 4. Add lights (CRITICAL)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+        
+        // 5. Add OrbitControls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.target.set(0, 0, 0);
+        controls.update();
+        
+        // 6. Load model with error handling
+        const loader = new THREE.GLTFLoader();
+        debug.textContent = "Loading model...";
+        
+        loader.load(
+            modelUrl,
+            (gltf) => {
+                const model = gltf.scene;
+                scene.add(model);
+                debug.textContent = "";
+                
+                // Center camera on model
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3()).length();
+                
+                camera.position.copy(center);
+                camera.position.z += size * 1.5;
+                controls.target.copy(center);
+                controls.update();
+            },
+            (xhr) => {
+                debug.textContent = `Loading: ${(xhr.loaded / xhr.total * 100).toFixed(2)}%`;
+            },
+            (error) => {
+                debug.textContent = `Error loading model: ${error}`;
+                console.error(error);
+                
+                // Add fallback cube if model fails
+                const geometry = new THREE.BoxGeometry(1, 1, 1);
+                const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                const cube = new THREE.Mesh(geometry, material);
+                scene.add(cube);
+            }
+        );
+        
+        // 7. Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // 8. Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

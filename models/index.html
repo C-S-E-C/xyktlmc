@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                display: flex;
+                height: 100vh;
+                background: #0a0a0a;
+                color: #fff;
+                overflow: hidden;
+            }
+            .sidebar {
+                width: 220px;
+                background: #111;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                border-right: 2px solid #aaa;
+            }
+            .main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                background: #0a0a0a;
+            }
+            iframe {
+                border: none;
+                width: 100%;
+                height: 100%;
+                display: none;
+            }
+            /* .about{
+                border-top: 2px solid #aaa;
+                display: flex;
+                flex-direction:row;
+                height: 20%;
+                gap: 10px;
+            }
+            .model{
+                border-bottom: 2px solid #aaa;
+                display: flex;
+                flex-direction:row;
+                height: 80%;
+                gap: 10px;
+            } */
+        </style>
+    </head>
+    <body>
+        <div class="sidebar">
+            <h3 onclick="render('熔炉组')">熔炉组</h3>
+        </div>
+        <div class="main">
+            <!-- <div class="model">
+            </div>
+            <div class="about">
+            </div> -->
+            <iframe></iframe>
+        </div>
+        <script>
+            function render(model) {
+                iframe = document.getElementsByTagName("iframe")[0];
+                iframe.src = "api.html?model=" + model + ".glb";
+            }
+        </script>
+    </body>
+</html>
