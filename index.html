@@ -234,6 +234,14 @@ footer {
   <script>
     // useragent detection
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    //get the whith of the screen
+    const screenWidth  = window.screen.width;
+    const screenHeight = window.screen.height;
+    if (screenWidth < screenHeight) {
+      isMobile = true;
+    } else {
+      isMobile = isMobile;
+    }
     if (isMobile) {
       document.body.innerHTML = `
         <div style="text-align: center; padding: 50px;">
