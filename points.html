@@ -40,9 +40,37 @@
                     // create a table row for each player
                     data.forEach(player => {
                         const row = document.createElement('tr');
+                        const head = document.createElement('img');
                         const nameCell = document.createElement('td');
                         const pointsCell = document.createElement('td');
-                        nameCell.textContent = player.name;
+                        const name = document.createElement('span');
+
+                        const mineskinUrl = `https://mineskin.eu/helm/${player.name}/200`;
+                        const littleskinUrl = `https://littleskin.cn/avatar/player/${player.name}`;
+                        const testImage = new Image();
+                        testImage.src = mineskinUrl;
+                        testImage.onload = function () {
+                            head.src = mineskinUrl;
+                        };
+                        testImage.onerror = function () {
+                            head.src = littleskinUrl;
+                        };
+
+                        head.style.borderRadius = "5px";
+                        // 他妈的这margin和padding都不行
+                        //有病啊局你妈中啊
+                        // head.style.padding = "10px";
+                        // head.style.border = "2px solid #fff";
+                        head.style.width = "40px";
+                        head.style.top = "30%";
+                        head.style.height = "40px";
+                        name.style.paddingLeft = "10px";
+                        nameCell.appendChild(head);
+                        name.style.height = "40px";
+                        name.style.lineHeight = "80px";
+                        name.style.textAlign = "center";
+                        name.textContent = player.name;
+                        nameCell.appendChild(name);
                         pointsCell.textContent = player.points;
                         row.appendChild(nameCell);
                         row.appendChild(pointsCell);
