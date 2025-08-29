@@ -34,7 +34,101 @@
         </table>
         <script>
             // fetch the points from the server
-            fetch('https://assets.r2.csec.top/xyktlmc/points.json')
+            function warningwindow(title, info) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = '1000';
+    
+    // Create warning window
+    const warningWindow = document.createElement('div');
+    warningWindow.style.backgroundColor = '#fff3cd';
+    warningWindow.style.border = '1px solid #ffeaa7';
+    warningWindow.style.borderRadius = '8px';
+    warningWindow.style.padding = '20px';
+    warningWindow.style.width = '300px';
+    warningWindow.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+    warningWindow.style.fontFamily = 'Arial, sans-serif';
+    
+    // Create title
+    const titleElement = document.createElement('h3');
+    titleElement.textContent = title;
+    titleElement.style.margin = '0 0 10px 0';
+    titleElement.style.color = '#856404';
+    titleElement.style.fontSize = '18px';
+    
+    // Create info text
+    const infoElement = document.createElement('p');
+    infoElement.textContent = info;
+    infoElement.style.margin = '0 0 20px 0';
+    infoElement.style.color = '#856404';
+    infoElement.style.lineHeight = '1.4';
+    
+    // Create OK button
+    const okButton = document.createElement('button');
+    okButton.textContent = 'OK';
+    okButton.style.backgroundColor = '#ffc107';
+    okButton.style.color = '#856404';
+    okButton.style.border = 'none';
+    okButton.style.padding = '8px 16px';
+    okButton.style.borderRadius = '4px';
+    okButton.style.cursor = 'pointer';
+    okButton.style.fontWeight = 'bold';
+    okButton.style.marginLeft = 'auto';
+    okButton.style.display = 'block';
+    
+    // Add hover effect to button
+    okButton.addEventListener('mouseenter', () => {
+        okButton.style.backgroundColor = '#e0a800';
+    });
+    okButton.addEventListener('mouseleave', () => {
+        okButton.style.backgroundColor = '#ffc107';
+    });
+    
+    // Close function
+    function closeWindow() {
+        document.body.removeChild(overlay);
+    }
+    
+    // Add click event to button
+    okButton.addEventListener('click', closeWindow);
+    
+    // Add click event to overlay (close when clicking outside)
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            closeWindow();
+        }
+    });
+    
+    // Add Escape key to close
+    document.addEventListener('keydown', function handleEscape(e) {
+        if (e.key === 'Escape') {
+            closeWindow();
+            document.removeEventListener('keydown', handleEscape);
+        }
+    });
+    
+    // Assemble the window
+    warningWindow.appendChild(titleElement);
+    warningWindow.appendChild(infoElement);
+    warningWindow.appendChild(okButton);
+    overlay.appendChild(warningWindow);
+    
+    // Add to document
+    document.body.appendChild(overlay);
+}
+
+// Example usage:
+warningwindow('Warning!', 'The points on this site do not work on the v2 version of the server!');
+fetch('https://assets.r2.csec.top/xyktlmc/points.json')
                 .then(response => response.json())
                 .then(data => {
                     // create a table row for each player
