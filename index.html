@@ -232,29 +232,6 @@ footer {
 
   </style>
   <script>
-    //get the whith of the screen
-    const windowInnerWidth  = window.innerWidth;
-    const windowInnerHeight = window.innerHeight;
-    console.log("Window Width: " + windowInnerWidth);
-    console.log("Window Height: " + windowInnerHeight);
-    let isMobile = false;
-    if (windowInnerWidth < windowInnerHeight) {
-      isMobile = true;
-    } else {
-      isMobile = isMobile;
-    }
-    if (isMobile) {
-      document.addEventListener("DOMContentLoaded", () => {
-      document.getElementsByTagName("body")[0].innerHTML = `
-        <div style="text-align: center; padding: 50px;">
-          <h1>Mobile devices are not supported</h1>
-          <p>Please visit this site on a desktop or laptop computer.</p>
-        </div>
-      `;
-      });
-    }
-  </script>
-  <script>
     document.addEventListener("DOMContentLoaded", () => {
                 const konamiCode = [
                     "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
@@ -375,6 +352,7 @@ footer {
   <header>
     <!-- 取一个帅一点的名字 -->
     <h1>星缘方界 Xy_craft</h1>  
+    <p>周目二</p><br></b>
     <p>最初是朋友间的随意搭建，回归纯粹的生存玩法，无内购无插件，欢迎大家一起探索和成长。</p>
   </header>
 
@@ -383,8 +361,6 @@ footer {
     <a href="#screenshots">游戏截图</a>
     <a href="#join">加入我们</a>
     <a href="#map">服务器地图</a>
-    <a href="#models">服务器机器模型</a>
-    <a href="#points">服务器玩家分数</a>
   </nav>
 
   <section id="about">
@@ -414,37 +390,12 @@ footer {
     <a class="join-button" href="https://map.xyktlmc.top" target="_blank">查看地图</a>
   </section>
 
-  <section id="models">
-    <h2>服务器机器模型</h2>
-    <p>点击下方按钮即可查看服务器机器模型</p>
-    <a class="join-button" href="https://xyktlmc.top/models/" target="_blank">查看机器模型</a>
-  </section>
-
-  <section id="points">
-    <h2>服务器玩家分数</h2>
-    <p>点击下方按钮即可查看服务器玩家分数</p>
-    <a class="join-button" href="https://xyktlmc.top/points.html" target="_blank">查看玩家分数</a>
-  </section>
-  
-  <section id="points">
-    <h2>服务器玩家吉尼斯纪录</h2>
-    <p>点击下方按钮即可查看服务器玩家分数</p>
-    <a class="join-button" href="https://guinnessrecords.xyktlmc.top/" target="_blank">查看</a>
-  </section>
-  
-  <section id="points">
-    <h2>服务器异常处理</h2>
-    <p>点击下方按钮即可查看服务器玩家分数</p>
-    <a class="join-button" href="https://docs.xyktlmc.top/" target="_blank">查看</a>
-  </section>
   <footer>
     <p>星缘方界 Xy_craft 保留所有权利。</p>
     <p>"Minecraft"及其产品为 Mojang AB 的商标。本服务器(组织)不隶属于 Mojang AB。</p>
     <p>本服务器在遵守 <a href="https://www.minecraft.net/zh-hans/eula" target="_blank" style="color: #00bfff;">《Minecraft EULA》</a> 的情况下运营。</p>
     <p>本服务器不包含任何内购产品。</p>
-    <p>本服务器内任何玩家所做的人和事均不代表本服相关人员立场或观点且不承担任何后果。</p>
-    <p>完整注意事项：<a href="notes.html" target="_blank" style="color: #00bfff;">点击此处</a></p>
-    <p>Copyright © 2025-2027 星缘方界 Xy_craft 版权所有。</p>
+    <p>Copyright © 2025-2026 星缘方界 Xy_craft 版权所有。</p>
   </footer>
 
   <div id="imageModal" class="modal">
