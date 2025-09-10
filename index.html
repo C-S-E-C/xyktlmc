@@ -232,6 +232,29 @@ footer {
 
   </style>
   <script>
+    //get the whith of the screen
+    const windowInnerWidth  = window.innerWidth;
+    const windowInnerHeight = window.innerHeight;
+    console.log("Window Width: " + windowInnerWidth);
+    console.log("Window Height: " + windowInnerHeight);
+    let isMobile = false;
+    if (windowInnerWidth < windowInnerHeight) {
+      isMobile = true;
+    } else {
+      isMobile = isMobile;
+    }
+    if (isMobile) {
+      document.addEventListener("DOMContentLoaded", () => {
+      document.getElementsByTagName("body")[0].innerHTML = `
+        <div style="text-align: center; padding: 50px;">
+          <h1>Mobile devices are not supported</h1>
+          <p>Please visit this site on a desktop or laptop computer.</p>
+        </div>
+      `;
+      });
+    }
+  </script>
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
                 const konamiCode = [
                     "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
@@ -345,6 +368,8 @@ footer {
   <div class="logo-container" id="logoContainer">
     <img src="images/logo.png" alt="logo" class="logo">
     <span class="server-name">星缘方界 Xy_craft</span>
+    <p>周目二</p><br></b>
+    <p>单纯的生存玩法，想干什么就干什么。</p>
   </div>
 
 <button class="mode-toggle" id="modeToggle"><i class="fas fa-moon"></i></button>
@@ -352,31 +377,32 @@ footer {
   <header>
     <!-- 取一个帅一点的名字 -->
     <h1>星缘方界 Xy_craft</h1>  
-    <p>周目二</p><br></b>
-    <p>单纯的生存玩法，想干什么就干什么。</p>
+    <p>最初是朋友间的随意搭建，回归纯粹的生存玩法，无内购无插件，欢迎大家一起探索和成长。</p>
   </header>
 
   <nav>
     <a href="#about">关于</a>
-    <!--<a href="#screenshots">游戏截图</a>-->
+    <a href="#screenshots">游戏截图</a>
     <a href="#join">加入我们</a>
-    <a href="#map">服务器地图</a>
+    <!-- <a href="#map">服务器地图</a> -->
+    <a href="#models">服务器机器模型</a>
+    <a href="#points">服务器玩家分数</a>
   </nav>
 
   <section id="about">
     <h2>关于</h2>
-    <p>星缘方界 Xy_craft 是一个公益性质的 Minecraft 服务器，主要玩法为纯净生存。服务器的版本目前是1.21.8(1.21.x版本都可以加入)，可以加入客户端向的模组。</p>
-    <p>星缘方界 Xy_craft 最早起始于 2024 年。这个服务器原本只是朋友之间随便搭的，现在希望更多的人来一起体验游戏的乐趣</p>
-    <p>星缘方界 Xy_craft 由 Frp.cool 驱动。</p>
+    <p>星缘方界 Xy_craft 是一个公益性质的 Minecraft 服务器，主要玩法为纯净生存。服务器的版本目前是1.21.1，可以加入客户端向的模组。</p>
+    <p>星缘方界 Xy_craft 最早起始于 2024 年。这个服务器原本只是朋友之间随便搭的，现在我们希望更多人能一起来享受纯净生存的乐趣。</p>
+    <p>星缘方界 Xy_craft 由 Locyan 驱动。</p>
   </section>
 
   <section id="screenshots">
-    <!--<h2>游戏内展示</h2>
+    <h2>游戏内展示</h2>
     <div class="screenshots">
       <img src="images/xyktl_mc.png" alt="游戏截图1" class="popup-img">
       <img src="images/villager_trade.png" alt="游戏截图2" class="popup-img">
     </div>
-  </section>-->
+  </section>
 
   <section id="join">
     <h2>加入我们</h2>
@@ -384,20 +410,43 @@ footer {
     <a class="join-button" href="https://kook.vip/tj6CZS" target="_blank">加入我们</a>
   </section>
 
-  <!--<section id="map">
+  <!-- <section id="map">
     <h2>服务器地图</h2>
     <p>点击下方按钮即可查看我们的服务器地图</p>
     <a class="join-button" href="https://map.xyktlmc.top" target="_blank">查看地图</a>
-  </section>-->
+  </section> -->
 
+  <section id="models">
+    <h2>服务器机器模型</h2>
+    <p>点击下方按钮即可查看服务器机器模型</p>
+    <a class="join-button" href="https://xyktlmc.top/models/" target="_blank">查看机器模型</a>
+  </section>
+
+  <section id="points">
+    <h2>服务器玩家分数</h2>
+    <p>点击下方按钮即可查看服务器玩家分数</p>
+    <a class="join-button" href="https://xyktlmc.top/points.html" target="_blank">查看玩家分数</a>
+  </section>
+  
+  <section id="points">
+    <h2>服务器玩家吉尼斯纪录</h2>
+    <p>点击下方按钮即可查看服务器玩家分数</p>
+    <a class="join-button" href="https://guinnessrecords.xyktlmc.top/" target="_blank">查看</a>
+  </section>
+  
+  <section id="points">
+    <h2>服务器异常处理</h2>
+    <p>点击下方按钮即可查看服务器玩家分数</p>
+    <a class="join-button" href="https://docs.xyktlmc.top/" target="_blank">查看</a>
+  </section>
   <footer>
     <p>星缘方界 Xy_craft 保留所有权利。</p>
     <p>"Minecraft"及其产品为 Mojang AB 的商标。本服务器(组织)不隶属于 Mojang AB。</p>
     <p>本服务器在遵守 <a href="https://www.minecraft.net/zh-hans/eula" target="_blank" style="color: #00bfff;">《Minecraft EULA》</a> 的情况下运营。</p>
-    <p>本服务器内任何玩家所做的人和事均不代表本服相关人员立场或观点且不承担任何后果。</p>
     <p>本服务器不包含任何内购产品。</p>
+    <p>本服务器内任何玩家所做的人和事均不代表本服相关人员立场或观点且不承担任何后果。</p>
     <p>完整注意事项：<a href="notes.html" target="_blank" style="color: #00bfff;">点击此处</a></p>
-    <p>Copyright © 2025-2026 星缘方界 Xy_craft 版权所有。</p>
+    <p>Copyright © 2025-2027 星缘方界 Xy_craft 版权所有。</p>
   </footer>
 
   <div id="imageModal" class="modal">
